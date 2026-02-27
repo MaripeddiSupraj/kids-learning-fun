@@ -4,14 +4,18 @@ A browser-based educational games hub for ages 3-7.
 
 ## Play Online
 
-https://maripeddisupraj.github.io/kids-learning-fun/
+- Main Hub: [Kids Learning Games](https://maripeddisupraj.github.io/kids-learning-fun/)
+- Learning Trio: [Play](https://maripeddisupraj.github.io/kids-learning-fun/games/learning-trio/)
+- Color Match: [Play](https://maripeddisupraj.github.io/kids-learning-fun/games/color-match/)
+- Number Train: [Play](https://maripeddisupraj.github.io/kids-learning-fun/games/number-train/)
+- Animal Memory: [Play](https://maripeddisupraj.github.io/kids-learning-fun/games/animal-memory/)
 
 ## Games
 
-- Learning Trio (Memory + Spelling + Math): `games/learning-trio/`
-- Color Match: `games/color-match/`
-- Number Train: `games/number-train/`
-- Animal Memory: `games/animal-memory/`
+- Learning Trio (Memory + Spelling + Math): [games/learning-trio/](games/learning-trio/)
+- Color Match: [games/color-match/](games/color-match/)
+- Number Train: [games/number-train/](games/number-train/)
+- Animal Memory: [games/animal-memory/](games/animal-memory/)
 
 ## Run locally
 
