@@ -3,32 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kids Learning Fun</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Kids Learning Games Hub</title>
+  <style>
+    :root {
+      --bg-a: #fff3c4;
+      --bg-b: #c8f1ff;
+      --card: #ffffff;
+      --ink: #232323;
+      --accent: #ff7b54;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Comic Sans MS", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(160deg, var(--bg-a), var(--bg-b));
+      min-height: 100vh;
+    }
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+    }
+    p {
+      margin: 0 0 20px;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .icon { font-size: 2rem; }
+    .btn {
+      margin-top: auto;
+      text-decoration: none;
+      text-align: center;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+  </style>
 </head>
 <body>
-  <main class="app">
-    <header>
-      <h1>Kids Learning Fun</h1>
-      <p>Choose a game and learn while you play!</p>
-    </header>
+  <main>
+    <h1>Kids Learning Games</h1>
+    <p>Pick a game and start learning. Ages 3-7.</p>
 
-    <section id="menu" class="card">
-      <button data-game="memory">Memory Match</button>
-      <button data-game="spelling">Spelling Builder</button>
-      <button data-game="math">Math Bubbles</button>
-    </section>
+    <section class="grid">
+      <article class="card">
+        <div class="icon">🧠</div>
+        <h2>Learning Trio</h2>
+        <p>Memory match, spelling builder, and math bubbles.</p>
+        <a class="btn" href="games/learning-trio/">Play</a>
+      </article>
 
-    <section id="game" class="card hidden">
-      <div class="game-top">
-        <h2 id="game-title"></h2>
-        <div class="score-wrap">Score: <span id="score">0</span></div>
-      </div>
-      <div id="game-area"></div>
-      <button id="back-btn" class="back">Back to Menu</button>
+      <article class="card">
+        <div class="icon">🎨</div>
+        <h2>Color Match</h2>
+        <p>Match the color name to the right color button.</p>
+        <a class="btn" href="games/color-match/">Play</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">🚂</div>
+        <h2>Number Train</h2>
+        <p>Fill the missing number in counting sequences.</p>
+        <a class="btn" href="games/number-train/">Play</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">🐼</div>
+        <h2>Animal Memory</h2>
+        <p>Flip cards and match the same animal pairs.</p>
+        <a class="btn" href="games/animal-memory/">Play</a>
+      </article>
     </section>
   </main>
-
-  <script src="script.js"></script>
 </body>
 </html>

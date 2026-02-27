@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Comic Sans MS", sans-serif;
+  background: linear-gradient(180deg, #fff7c2, #d6ffe3);
+}
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+.choices {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+button {
+  border: 0;
+  border-radius: 12px;
+  background: #ff7b54;
+  color: #fff;
+  padding: 12px 18px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}

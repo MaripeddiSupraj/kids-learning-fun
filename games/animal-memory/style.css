@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Comic Sans MS", sans-serif;
+  background: linear-gradient(180deg, #ffe5ec, #d8f3dc);
+}
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(60px, 1fr));
+  gap: 10px;
+}
+.tile {
+  border: 0;
+  border-radius: 12px;
+  min-height: 70px;
+  font-size: 1.6rem;
+  background: #90e0ef;
+}
+.tile.done,
+.tile.show {
+  background: #95d5b2;
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: repeat(3, minmax(60px, 1fr)); }
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kids Learning Fun</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Kids Learning Fun</h1>
+      <p>Choose a game and learn while you play!</p>
+    </header>
+
+    <section id="menu" class="card">
+      <button data-game="memory">Memory Match</button>
+      <button data-game="spelling">Spelling Builder</button>
+      <button data-game="math">Math Bubbles</button>
+    </section>
+
+    <section id="game" class="card hidden">
+      <div class="game-top">
+        <h2 id="game-title"></h2>
+        <div class="score-wrap">Score: <span id="score">0</span></div>
+      </div>
+      <div id="game-area"></div>
+      <button id="back-btn" class="back">Back to Menu</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

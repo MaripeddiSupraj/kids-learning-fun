@@ -1,14 +1,17 @@
 # Kids Learning Fun
 
-A simple browser-based educational game set for ages 3-7 with three mini-games:
-
-- Memory Match
-- Spelling Builder
-- Math Bubbles
+A browser-based educational games hub for ages 3-7.
 
 ## Play Online
 
 https://maripeddisupraj.github.io/kids-learning-fun/
+
+## Games
+
+- Learning Trio (Memory + Spelling + Math): `games/learning-trio/`
+- Color Match: `games/color-match/`
+- Number Train: `games/number-train/`
+- Animal Memory: `games/animal-memory/`
 
 ## Run locally
 
