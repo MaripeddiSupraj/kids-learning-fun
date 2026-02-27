@@ -9,14 +9,34 @@ body {
   padding: 20px;
   text-align: center;
 }
+.controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+}
+select {
+  border-radius: 8px;
+  padding: 6px;
+}
+.best {
+  margin: 0;
+  font-weight: 700;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(60px, 1fr));
   gap: 10px;
 }
-.tile {
+button {
   border: 0;
   border-radius: 12px;
+  padding: 10px;
+  font-weight: 700;
+}
+.tile {
   min-height: 70px;
   font-size: 1.6rem;
   background: #90e0ef;

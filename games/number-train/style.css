@@ -9,6 +9,22 @@ body {
   padding: 20px;
   text-align: center;
 }
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+  align-items: center;
+}
+select {
+  border-radius: 8px;
+  padding: 6px;
+}
+.best {
+  font-weight: 700;
+  margin: 0;
+}
 .choices {
   display: flex;
   justify-content: center;

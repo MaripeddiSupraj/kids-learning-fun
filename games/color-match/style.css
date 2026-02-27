@@ -13,6 +13,22 @@ body {
   display: inline-block;
   margin-bottom: 10px;
 }
+.controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+}
+select {
+  border-radius: 8px;
+  padding: 6px;
+}
+.best {
+  font-weight: 700;
+  margin: 0;
+}
 .choices {
   display: grid;
   grid-template-columns: repeat(2, minmax(120px, 1fr));
@@ -21,8 +37,7 @@ body {
 button {
   border: 0;
   border-radius: 12px;
-  min-height: 72px;
-  font-size: 1.1rem;
+  min-height: 54px;
+  font-size: 1rem;
   font-weight: 700;
-  color: #fff;
 }

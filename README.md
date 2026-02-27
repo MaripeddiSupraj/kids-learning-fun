@@ -17,6 +17,13 @@ A browser-based educational games hub for ages 3-7.
 - Number Train: [games/number-train/](games/number-train/)
 - Animal Memory: [games/animal-memory/](games/animal-memory/)
 
+## New Features
+
+- Age-based difficulty in every game: `3-4`, `5-6`, `7`
+- Sound effects toggle and background music toggle
+- Parent progress tracking with local best scores (saved in browser local storage)
+- Hub dashboard that shows best score and play count for each game
+
 ## Run locally
 
 ```bash

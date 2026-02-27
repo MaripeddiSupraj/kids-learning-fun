@@ -4,10 +4,24 @@ const gameTitle = document.getElementById("game-title");
 const gameArea = document.getElementById("game-area");
 const scoreEl = document.getElementById("score");
 const backBtn = document.getElementById("back-btn");
+const difficultyEl = document.getElementById("difficulty");
+const soundToggle = document.getElementById("sound-toggle");
+const musicToggle = document.getElementById("music-toggle");
+const bestScoreEl = document.getElementById("best-score");
 
+const progressKey = "kidsLearningProgress";
+const progressGameKey = "learning-trio";
 let score = 0;
+let soundOn = true;
+let musicOn = false;
+let musicTimer = null;
+let audioCtx = null;
 
-const words = ["CAT", "SUN", "BALL", "TREE", "FISH", "MOON"];
+const wordSets = {
+  easy: ["CAT", "SUN", "DOG", "BALL"],
+  medium: ["TREE", "FISH", "MOON", "APPLE"],
+  hard: ["PLANET", "GARDEN", "SCHOOL", "ORANGE"]
+};
 
 menu.addEventListener("click", (e) => {
   if (e.target.tagName !== "BUTTON") return;
@@ -19,6 +33,20 @@ backBtn.addEventListener("click", () => {
   gameSection.classList.add("hidden");
   menu.classList.remove("hidden");
   gameArea.innerHTML = "";
+  saveProgress(score);
+});
+
+soundToggle.addEventListener("click", () => {
+  soundOn = !soundOn;
+  soundToggle.textContent = `Sound: ${soundOn ? "On" : "Off"}`;
+  if (soundOn) beep(520, 0.08);
+});
+
+musicToggle.addEventListener("click", () => {
+  musicOn = !musicOn;
+  musicToggle.textContent = `Music: ${musicOn ? "On" : "Off"}`;
+  if (musicOn) startMusic();
+  else stopMusic();
 });
 
 function setScore(value) {
@@ -28,6 +56,7 @@ function setScore(value) {
 
 function addScore(points) {
   setScore(score + points);
+  saveProgress(score);
 }
 
 function startGame(game) {
@@ -50,8 +79,13 @@ function startGame(game) {
 }
 
 function launchMemory() {
-  const items = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F"]
-    .sort(() => Math.random() - 0.5);
+  const pairCount = difficultyEl.value === "easy" ? 4 : difficultyEl.value === "medium" ? 6 : 8;
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const items = [];
+  for (let i = 0; i < pairCount; i += 1) {
+    items.push(alphabet[i], alphabet[i]);
+  }
+  items.sort(() => Math.random() - 0.5);
 
   gameArea.innerHTML = '<div class="memory-grid"></div><div id="msg"></div>';
   const grid = gameArea.querySelector(".memory-grid");
@@ -81,6 +115,7 @@ function launchMemory() {
       if (first.dataset.value === btn.dataset.value) {
         first.classList.add("matched");
         btn.classList.add("matched");
+        playCorrect();
         addScore(2);
         matched += 2;
         if (matched === items.length) {
@@ -88,6 +123,7 @@ function launchMemory() {
         }
         first = null;
       } else {
+        playWrong();
         lock = true;
         setTimeout(() => {
           first.textContent = "?";
@@ -106,6 +142,7 @@ function launchMemory() {
 
 function launchSpelling() {
   gameArea.innerHTML = "";
+  const words = wordSets[difficultyEl.value];
   let current = pick(words);
 
   const word = document.createElement("div");
@@ -143,12 +180,14 @@ function launchSpelling() {
           built += letter;
           btn.disabled = true;
           renderWord();
+          playCorrect();
           if (built === current) {
             status.textContent = "Correct!";
-            addScore(3);
+            addScore(difficultyEl.value === "hard" ? 4 : 3);
             nextBtn.classList.remove("hidden");
           }
         } else {
+          playWrong();
           status.textContent = "Try again";
         }
       });
@@ -183,8 +222,9 @@ function launchMath() {
     choices.innerHTML = "";
     status.textContent = "";
 
-    const a = rand(1, 6);
-    const b = rand(1, 6);
+    const maxValue = difficultyEl.value === "easy" ? 5 : difficultyEl.value === "medium" ? 8 : 12;
+    const a = rand(1, maxValue);
+    const b = rand(1, maxValue);
     const answer = a + b;
     question.textContent = `${a} + ${b} = ?`;
 
@@ -193,7 +233,7 @@ function launchMath() {
       .sort(() => Math.random() - 0.5);
 
     while (opts.length < 3) {
-      const extra = rand(0, 12);
+      const extra = rand(0, maxValue * 2);
       if (!opts.includes(extra)) opts.push(extra);
     }
 
@@ -203,10 +243,12 @@ function launchMath() {
       btn.textContent = String(opt);
       btn.addEventListener("click", () => {
         if (opt === answer) {
+          playCorrect();
           status.textContent = "Nice!";
           addScore(2);
           setTimeout(round, 500);
         } else {
+          playWrong();
           status.textContent = "Oops, try another bubble.";
         }
       });
@@ -225,3 +267,80 @@ function rand(min, max) {
 function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
+
+function getProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(progressKey) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function saveProgress(currentScore) {
+  const store = getProgress();
+  const previous = store[progressGameKey] || { best: 0, last: 0, plays: 0 };
+  const next = {
+    best: Math.max(previous.best || 0, currentScore),
+    last: currentScore,
+    plays: previous.plays + 1
+  };
+  store[progressGameKey] = next;
+  localStorage.setItem(progressKey, JSON.stringify(store));
+  bestScoreEl.textContent = String(next.best);
+}
+
+function loadBest() {
+  const store = getProgress();
+  const best = store[progressGameKey]?.best || 0;
+  bestScoreEl.textContent = String(best);
+}
+
+function ensureAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === "suspended") audioCtx.resume();
+  return audioCtx;
+}
+
+function beep(freq, duration, type = "sine", volume = 0.03) {
+  if (!soundOn) return;
+  const ctx = ensureAudio();
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.value = volume;
+  gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + duration);
+}
+
+function playCorrect() {
+  beep(660, 0.09, "triangle", 0.04);
+}
+
+function playWrong() {
+  beep(220, 0.11, "sawtooth", 0.03);
+}
+
+function startMusic() {
+  if (musicTimer) return;
+  const notes = [262, 330, 392, 330];
+  let i = 0;
+  ensureAudio();
+  musicTimer = setInterval(() => {
+    if (!musicOn) return;
+    beep(notes[i % notes.length], 0.12, "sine", 0.02);
+    i += 1;
+  }, 320);
+}
+
+function stopMusic() {
+  if (!musicTimer) return;
+  clearInterval(musicTimer);
+  musicTimer = null;
+}
+
+loadBest();

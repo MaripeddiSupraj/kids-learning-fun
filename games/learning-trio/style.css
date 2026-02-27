@@ -2,7 +2,6 @@
   --bg1: #fff8e7;
   --bg2: #d9f3ff;
   --primary: #ff7b54;
-  --secondary: #4f9d69;
   --text: #2b2b2b;
   --card: #ffffff;
 }
@@ -40,6 +39,28 @@ p { margin: 0; }
   border-radius: 18px;
   padding: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+label {
+  font-weight: 700;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+select {
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  padding: 8px;
 }
 
 #menu {
@@ -131,5 +152,8 @@ button:active { transform: scale(0.98); }
 @media (max-width: 640px) {
   .memory-grid {
     grid-template-columns: repeat(3, minmax(62px, 1fr));
+  }
+  .controls {
+    justify-content: center;
   }
 }

@@ -11,6 +11,20 @@
     <a class="back" href="../../">Back to Games Hub</a>
     <h1>Animal Memory</h1>
     <p>Match the same animals.</p>
+    <section class="controls">
+      <label>
+        Age Level
+        <select id="difficulty">
+          <option value="easy">3-4</option>
+          <option value="medium" selected>5-6</option>
+          <option value="hard">7</option>
+        </select>
+      </label>
+      <button id="sound-toggle" type="button">Sound: On</button>
+      <button id="music-toggle" type="button">Music: Off</button>
+      <button id="restart" type="button">New Board</button>
+      <p class="best">Best: <span id="best-score">0</span></p>
+    </section>
     <div id="grid" class="grid"></div>
     <p id="status"></p>
     <p>Score: <span id="score">0</span></p>

@@ -59,6 +59,31 @@
       border-radius: 10px;
       font-weight: 700;
     }
+    .meta {
+      margin: 0;
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .panel {
+      margin: 18px 0;
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 8px;
+    }
+    .stat {
+      background: #f8fbff;
+      border: 1px solid #e3eef8;
+      border-radius: 10px;
+      padding: 10px;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
@@ -66,11 +91,17 @@
     <h1>Kids Learning Games</h1>
     <p>Pick a game and start learning. Ages 3-7.</p>
 
+    <section class="panel">
+      <h2>Parent Progress Dashboard</h2>
+      <div class="stats" id="progress-stats"></div>
+    </section>
+
     <section class="grid">
       <article class="card">
         <div class="icon">🧠</div>
         <h2>Learning Trio</h2>
         <p>Memory match, spelling builder, and math bubbles.</p>
+        <p class="meta">Best Score: <span data-progress="learning-trio">0</span></p>
         <a class="btn" href="games/learning-trio/">Play</a>
       </article>
 
@@ -78,6 +109,7 @@
         <div class="icon">🎨</div>
         <h2>Color Match</h2>
         <p>Match the color name to the right color button.</p>
+        <p class="meta">Best Score: <span data-progress="color-match">0</span></p>
         <a class="btn" href="games/color-match/">Play</a>
       </article>
 
@@ -85,6 +117,7 @@
         <div class="icon">🚂</div>
         <h2>Number Train</h2>
         <p>Fill the missing number in counting sequences.</p>
+        <p class="meta">Best Score: <span data-progress="number-train">0</span></p>
         <a class="btn" href="games/number-train/">Play</a>
       </article>
 
@@ -92,9 +125,41 @@
         <div class="icon">🐼</div>
         <h2>Animal Memory</h2>
         <p>Flip cards and match the same animal pairs.</p>
+        <p class="meta">Best Score: <span data-progress="animal-memory">0</span></p>
         <a class="btn" href="games/animal-memory/">Play</a>
       </article>
     </section>
   </main>
+
+  <script>
+    const key = "kidsLearningProgress";
+    const progress = (() => {
+      try {
+        return JSON.parse(localStorage.getItem(key) || "{}");
+      } catch {
+        return {};
+      }
+    })();
+
+    const gameKeys = ["learning-trio", "color-match", "number-train", "animal-memory"];
+    let totalBest = 0;
+
+    gameKeys.forEach((gameKey) => {
+      const best = progress[gameKey]?.best || 0;
+      const plays = progress[gameKey]?.plays || 0;
+      totalBest += best;
+      const el = document.querySelector(`[data-progress="${gameKey}"]`);
+      if (el) el.textContent = String(best);
+      const stat = document.createElement("div");
+      stat.className = "stat";
+      stat.textContent = `${gameKey}: Best ${best} | Plays ${plays}`;
+      document.getElementById("progress-stats").appendChild(stat);
+    });
+
+    const total = document.createElement("div");
+    total.className = "stat";
+    total.textContent = `Total Best Score Across Games: ${totalBest}`;
+    document.getElementById("progress-stats").prepend(total);
+  </script>
 </body>
 </html>

@@ -11,6 +11,19 @@
     <a class="back" href="../../">Back to Games Hub</a>
     <h1>Color Match</h1>
     <p>Tap the button with the correct color.</p>
+    <section class="controls">
+      <label>
+        Age Level
+        <select id="difficulty">
+          <option value="easy">3-4</option>
+          <option value="medium" selected>5-6</option>
+          <option value="hard">7</option>
+        </select>
+      </label>
+      <button id="sound-toggle" type="button">Sound: On</button>
+      <button id="music-toggle" type="button">Music: Off</button>
+      <p class="best">Best: <span id="best-score">0</span></p>
+    </section>
     <h2 id="prompt">Find: BLUE</h2>
     <div id="choices" class="choices"></div>
     <p id="status"></p>

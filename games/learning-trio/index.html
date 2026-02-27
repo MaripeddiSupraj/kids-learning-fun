@@ -13,6 +13,20 @@
       <p>Choose a game and learn while you play!</p>
     </header>
 
+    <section class="card controls">
+      <label>
+        Age Level
+        <select id="difficulty">
+          <option value="easy">3-4</option>
+          <option value="medium" selected>5-6</option>
+          <option value="hard">7</option>
+        </select>
+      </label>
+      <button id="sound-toggle" type="button">Sound: On</button>
+      <button id="music-toggle" type="button">Music: Off</button>
+      <div class="score-wrap">Best: <span id="best-score">0</span></div>
+    </section>
+
     <section id="menu" class="card">
       <button data-game="memory">Memory Match</button>
       <button data-game="spelling">Spelling Builder</button>
