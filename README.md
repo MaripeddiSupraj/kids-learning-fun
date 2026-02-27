@@ -6,6 +6,10 @@ A simple browser-based educational game set for ages 3-7 with three mini-games:
 - Spelling Builder
 - Math Bubbles
 
+## Play Online
+
+https://maripeddisupraj.github.io/kids-learning-fun/
+
 ## Run locally
 
 ```bash
